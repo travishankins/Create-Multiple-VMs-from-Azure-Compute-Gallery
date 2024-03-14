@@ -17,7 +17,10 @@ param imageVersion string = '<imageVersion>' // Specific version of the image to
 // Constructing the full resource ID for the ACG image version
 var acgImageId = '/subscriptions/${subscriptionId}/resourceGroups/${galleryResourceGroup}/providers/Microsoft.Compute/galleries/${galleryName}/images/${imageDefinition}/versions/${imageVersion}'
 
-// Reference to the existing VNet and subnet
+// Constructing the subnet ID
+var subnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', existingVnetResourceGroup, existingVnetName, existingSubnetName)
+
+// Reference to the existing VNet (for context, not directly used in subnet referencing here)
 resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' existing = {
   name: existingVnetName
   scope: resourceGroup(existingVnetResourceGroup)
@@ -44,7 +47,6 @@ resource virtualMachines 'Microsoft.Compute/virtualMachines@2021-07-01' = [for i
     networkProfile: {
       networkInterfaces: [
         {
-          // Creating a NIC for each VM in the loop
           name: '${vmNamePrefix}${format('{0:D2}', i + 1)}-nic'
           properties: {
             ipConfigurations: [
@@ -52,7 +54,7 @@ resource virtualMachines 'Microsoft.Compute/virtualMachines@2021-07-01' = [for i
                 name: 'ipconfig1'
                 properties: {
                   subnet: {
-                    id: vnet.subnets[existingSubnetName].id
+                    id: subnetId // Correctly reference the subnet ID
                   }
                 }
               }
