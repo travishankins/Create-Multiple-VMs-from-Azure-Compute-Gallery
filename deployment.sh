@@ -1,4 +1,5 @@
 az deployment group create \
-  --resource-group myExistingVNetResourceGroup \
-  --template-file ./path_to_your_bicep_file.bicep \
-  --parameters adminPassword=<YourSecurePassword>
+  --name MyDeployment \
+  --resource-group <YourResourceGroupName> \
+  --template-file <path-to-your-bicep-file>.bicep \
+  adminPassword='<YourSecurePassword>'

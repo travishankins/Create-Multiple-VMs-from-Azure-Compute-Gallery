@@ -36,3 +36,4 @@ To deploy this Bicep template, use the Azure CLI or PowerShell with the appropri
 
 ```bash
 az deployment group create --resource-group <ResourceGroupName> --template-file ./vm-deployment.bicep --parameters @parameters.json
+```
