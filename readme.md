@@ -35,5 +35,5 @@ The template constructs the full resource ID for the specified ACG image version
 To deploy this Bicep template, use the Azure CLI or PowerShell with the appropriate parameters. Example Azure CLI command:
 
 ```bash
-az deployment group create --resource-group <ResourceGroupName> --template-file ./vm-deployment.bicep --parameters @parameters.json
+az deployment group create --resource-group <ResourceGroupName> --template-file ./vm-deployment.bicep 
 ```
